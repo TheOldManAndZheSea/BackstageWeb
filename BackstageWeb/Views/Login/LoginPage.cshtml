@@ -1,0 +1,103 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>后台登录</title>
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <link href="~/Content/login/css/component.css" rel="stylesheet" />
+    <link href="~/Content/login/css/demo.css" rel="stylesheet" />
+    <link href="~/Content/login/css/normalize.css" rel="stylesheet" />
+    <link href="~/Content/layui/css/layui.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+    <script src="~/Content/layui/layui.js"></script>
+</head>
+<body>
+    <div class="container demo-1">
+        <div class="content">
+            <div id="large-header" class="large-header">
+                <canvas id="demo-canvas"></canvas>
+                <div class="logo_box">
+                    <h3>欢迎使用XX接码</h3>
+                    <form action="#" name="f" method="post">
+                        <div class="input_outer">
+                            <span class="u_user"></span>
+                            <input name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="请输入账户">
+                        </div>
+                        <div class="input_outer">
+                            <span class="us_uer"></span>
+                            <input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;" value="" type="password" placeholder="请输入密码">
+                        </div>
+                        <div class="mb2"><a id="sub" lay-filter="sub" class="act-but submit" href="javascript:;" style="color: #FFFFFF">登录</a></div>
+                        @*<div class="LoginOther">
+                            <a>忘记密码</a>
+                            <a>免费注册</a>
+                        </div>*@
+                    </form>
+                    <div class="myfooter">
+                        CopyRight@copy2018-<a style="color:antiquewhite" data-method="offset" data-type="auto" href="javascript:;" id="ShowMyWeChat">小貔貅</a>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div><!-- /container -->
+</body>
+</html>
+<img id="myWeChat" style="display:none" width="350" height="350" src="~/Image/WeChat.jpg"/>
+<script src="~/Content/login/js/TweenLite.min.js"></script>
+<script src="~/Content/login/js/EasePack.min.js"></script>
+<script src="~/Content/login/js/rAF.js"></script>
+<script src="~/Content/login/js/demo-1.js"></script>
+<script>
+    //加载弹出层组件
+    layui.use('layer', function () {
+
+        var layer = layui.layer;
+
+        //登录的点击事件
+        $("#sub").on("click", function () {
+            login();
+        })
+
+        $("body").keydown(function () {
+            if (event.keyCode == "13") {
+                login();
+            }
+        })
+
+        //登录函数
+        function login() {
+            var username = $(" input[ name='username' ] ").val();
+            var password = $(" input[ name='password' ] ").val();
+            $.ajax({
+                url: "/Login/LoginResult",
+                data: { "username": username, "password": password },
+                type: "post",
+                dataType: "json",
+                success: function (data) {
+                    if (data=="1") {
+                        window.location = "/Home/Index";
+                    } else {
+                        layer.msg(data);
+                    }
+                }
+            })
+        }
+        $("#ShowMyWeChat").click(function () {
+            layer.open({
+                type: 1,
+                title: '扫一扫添加微信',
+                area: [400, 400],
+                content: $("#myWeChat"),
+                shade: 0.6
+            })
+        })
+    })
+
+</script>

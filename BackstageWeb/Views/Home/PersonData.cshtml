@@ -1,0 +1,137 @@
+﻿@{ BackstageWeb.Models.db_Users Loginer = ViewBag.PersonData;}
+@{
+    ViewBag.Title = "个人资料";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/validate/ValidateStyle.css" rel="stylesheet" />
+
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 20px;">
+    <legend>个人信息</legend>
+</fieldset>
+<form class="layui-form layui-form-pane" id="regForm" action="">
+    <div id="Persondata1">
+        <div class="layui-form-item">
+            <label class="layui-form-label">登录账号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="title" autocomplete="off" placeholder="登录账号" class="layui-input" value="@Loginer.UserName" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">账号</label>
+            <div class="layui-input-inline">
+                <input type="text" name="username" lay-verify="required" placeholder="请输入登录账号" autocomplete="off" class="layui-input" value="@Loginer.AccoutNum" readonly>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">权限</label>
+            <div class="layui-input-inline">
+                @if (Loginer.UserNo == "1")
+                {
+                    <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input" value="超级管理员" readonly>
+                }
+                else
+                {
+                    <input type="text" name="username" lay-verify="required" autocomplete="off" class="layui-input" value="管理员" readonly>
+                }
+            </div>
+        </div>
+    </div>
+    <div id="PersonData2" style="display:none">
+        <div class="layui-form-item">
+            <label class="layui-form-label">请输入旧密码</label>
+            <div class="layui-input-inline">
+                <input type="password" autocomplete="off" id="OldPwd" name="OldPwd" placeholder="输入旧密码核对" class="layui-input" tip="请输入正确的密码">
+                <input style="display:none" id="LoginPwd" name="LoginPwd" value="@Loginer.PassWord" />
+                <input style="display:none" id="LoginId" value="@Loginer.Id" />
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">请输入新密码</label>
+            <div class="layui-input-inline">
+                <input type="password" autocomplete="off" name="NewPwd" id="NewPwd" placeholder="输入新密码" class="layui-input" tip="长度为6-16个字符">
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">请再次输入密码</label>
+            <div class="layui-input-inline">
+                <input type="password" autocomplete="off" id="AgainPwd" name="AgainPwd" placeholder="再次输入验证" class="layui-input" tip="密码与新密码一致">
+            </div>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <a class="layui-btn" id="ShowEdit">修改密码</a>
+        <a class="layui-btn" id="EditPwd" lay-submit lay-filter="*" style="display:none">修改密码</a>
+        <a class="layui-btn layui-btn-danger" href="javascript:history.go(-1);">返回上级</a>
+    </div>
+</form>
+<script src="~/Scripts/jquery.validate.js"></script>
+<script src="~/Scripts/jquery.validate.extend.js"></script>
+<script src="~/Scripts/messages_zh.js"></script>
+<script>
+    $().ready(function () {
+        var Person1 = document.getElementById('Persondata1');
+        var btnPer1 = document.getElementById('ShowEdit');
+        var Person2 = document.getElementById('PersonData2');
+        var btnPer2 = document.getElementById('EditPwd');
+        $("#ShowEdit").click(function () {
+            Person1.style.display = 'none';
+            btnPer1.style.display = 'none';
+            Person2.style.display = '';
+            btnPer2.style.display = '';
+            btnPer2.disabled = true;
+        })
+        $("#regForm").validate({
+            rules: {
+                OldPwd: {
+                    required: true,
+                    equalTo: '#LoginPwd'
+                },
+                NewPwd: {
+                    required: true,
+                    minlength: 6,
+                    maxlength: 16
+                },
+                AgainPwd: {
+                    required: true,
+                    equalTo: '#NewPwd'
+                }
+            },
+            messages: {
+                OldPwd: {
+                    required: "旧密码不能为空",
+                    equalTo: "旧密码输入错误"
+                },
+                NewPwd: {
+                    required: "密码不能为空",
+                    minlength: "密码不能小于六位",
+                    maxlength: "密码不能大于十六位"
+                },
+                AgainPwd: {
+                    required: "密码不能为空",
+                    equalTo: "两次密码输入不一致"
+                }
+            }
+        })
+    })
+    var layer;
+    layui.use('layer', function () {
+        layer = layui.layer;
+    })
+    $("#EditPwd").click(function () {
+        $.ajax({
+            url: '/Edit/EditPwd',
+            type: 'post',
+            data: { 'loginid': $("#LoginId").val(), 'password': $("#NewPwd").val() },
+            dataType: 'json',
+            success: function (result) {
+                if (result == "1") {
+                    layer.confirm("密码修改成功，请重新登录！", function () {
+                        window.location.href = "/Login/OutLogin";
+                    });
+                } else {
+                    layer.msg("密码修改失败！");
+                }
+            }
+        })
+    })
+</script>

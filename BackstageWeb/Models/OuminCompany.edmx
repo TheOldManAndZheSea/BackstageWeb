@@ -1,0 +1,319 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="db_CompanyModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="db_Case">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CaseName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CaseContent" Type="nvarchar(max)" />
+          <Property Name="CaseTime" Type="datetime" />
+          <Property Name="CaseImage" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsNo" Type="bit" />
+        </EntityType>
+        <!--生成过程中发现错误:
+警告 6002: 表/视图“db_Company.dbo.db_Company”未定义主键。已推断出该键，并将定义创建为只读的表/视图。-->
+        <EntityType Name="db_Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CompanyName" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyAddress" Type="nvarchar" MaxLength="50" />
+          <Property Name="CompanyContent" Type="nvarchar(max)" />
+          <Property Name="TelePhone" Type="nvarchar" MaxLength="50" />
+          <Property Name="ZipCode" Type="nvarchar" MaxLength="50" />
+          <Property Name="Email" Type="nvarchar" MaxLength="50" />
+          <Property Name="Image" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="db_Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="URL" Type="nvarchar" MaxLength="50" />
+          <Property Name="MenuName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserNo" Type="nchar" MaxLength="10" />
+          <Property Name="MenuNo" Type="nchar" MaxLength="10" />
+          <Property Name="IsNo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="db_News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" />
+          <Property Name="NewContent" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="IsNo" Type="bit" />
+        </EntityType>
+        <EntityType Name="db_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="Introduce" Type="nvarchar(max)" />
+          <Property Name="Image" Type="nvarchar" MaxLength="50" />
+          <Property Name="Count" Type="int" />
+          <Property Name="UnitPrice" Type="nchar" MaxLength="10" />
+          <Property Name="Type" Type="int" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="IsNo" Type="bit" />
+        </EntityType>
+        <EntityType Name="db_ProductType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreateTime" Type="datetime" />
+          <Property Name="IsNo" Type="bit" />
+        </EntityType>
+        <EntityType Name="db_Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="50" />
+          <Property Name="AccoutNum" Type="nvarchar" MaxLength="50" />
+          <Property Name="PassWord" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserNo" Type="nchar" MaxLength="10" />
+          <Property Name="IsNo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="db_CompanyModelStoreContainer">
+          <EntitySet Name="db_Case" EntityType="Self.db_Case" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_Menu" EntityType="Self.db_Menu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_News" EntityType="Self.db_News" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_Product" EntityType="Self.db_Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_ProductType" EntityType="Self.db_ProductType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_Users" EntityType="Self.db_Users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="db_Company" EntityType="Self.db_Company" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [db_Company].[Id] AS [Id], 
+    [db_Company].[CompanyName] AS [CompanyName], 
+    [db_Company].[CompanyAddress] AS [CompanyAddress], 
+    [db_Company].[CompanyContent] AS [CompanyContent], 
+    [db_Company].[TelePhone] AS [TelePhone], 
+    [db_Company].[ZipCode] AS [ZipCode], 
+    [db_Company].[Email] AS [Email], 
+    [db_Company].[Image] AS [Image]
+    FROM [dbo].[db_Company] AS [db_Company]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="db_CompanyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="db_Case">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CaseName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CaseContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CaseTime" Type="DateTime" Precision="3" />
+          <Property Name="CaseImage" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="IsNo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="db_Menu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="URL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MenuName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="MenuNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsNo" Type="Boolean" Nullable="false" />
+          <Property Name="UserNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="db_News">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NewContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsNo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="db_Product">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Introduce" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Int32" />
+          <Property Name="UnitPrice" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="Type" Type="Int32" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsNo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="db_ProductType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CreateTime" Type="DateTime" Precision="3" />
+          <Property Name="IsNo" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="db_Users">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="AccoutNum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="PassWord" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="UserNo" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="IsNo" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="db_Company">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyAddress" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CompanyContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TelePhone" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="ZipCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Image" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="CompanyContext" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="db_Case" EntityType="Self.db_Case" />
+          <EntitySet Name="db_Menu" EntityType="Self.db_Menu" />
+          <EntitySet Name="db_News" EntityType="Self.db_News" />
+          <EntitySet Name="db_Product" EntityType="Self.db_Product" />
+          <EntitySet Name="db_ProductType" EntityType="Self.db_ProductType" />
+          <EntitySet Name="db_Users" EntityType="Self.db_Users" />
+          <EntitySet Name="db_Company" EntityType="Self.db_Company" />
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="db_CompanyModelStoreContainer" CdmEntityContainer="CompanyContext">
+          <EntitySetMapping Name="db_Case">
+            <EntityTypeMapping TypeName="db_CompanyModel.db_Case">
+              <MappingFragment StoreEntitySet="db_Case">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CaseName" ColumnName="CaseName" />
+                <ScalarProperty Name="CaseContent" ColumnName="CaseContent" />
+                <ScalarProperty Name="CaseTime" ColumnName="CaseTime" />
+                <ScalarProperty Name="CaseImage" ColumnName="CaseImage" />
+                <ScalarProperty Name="IsNo" ColumnName="IsNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_Menu">
+            <EntityTypeMapping TypeName="db_CompanyModel.db_Menu">
+              <MappingFragment StoreEntitySet="db_Menu">
+                <ScalarProperty Name="UserNo" ColumnName="UserNo" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="URL" ColumnName="URL" />
+                <ScalarProperty Name="MenuName" ColumnName="MenuName" />
+                <ScalarProperty Name="MenuNo" ColumnName="MenuNo" />
+                <ScalarProperty Name="IsNo" ColumnName="IsNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_News">
+            <EntityTypeMapping TypeName="db_CompanyModel.db_News">
+              <MappingFragment StoreEntitySet="db_News">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="NewContent" ColumnName="NewContent" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IsNo" ColumnName="IsNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_Product">
+            <EntityTypeMapping TypeName="db_CompanyModel.db_Product">
+              <MappingFragment StoreEntitySet="db_Product">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Introduce" ColumnName="Introduce" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="UnitPrice" ColumnName="UnitPrice" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IsNo" ColumnName="IsNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_ProductType">
+            <EntityTypeMapping TypeName="db_CompanyModel.db_ProductType">
+              <MappingFragment StoreEntitySet="db_ProductType">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreateTime" ColumnName="CreateTime" />
+                <ScalarProperty Name="IsNo" ColumnName="IsNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_Users">
+            <EntityTypeMapping TypeName="db_CompanyModel.db_Users">
+              <MappingFragment StoreEntitySet="db_Users">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccoutNum" ColumnName="AccoutNum" />
+                <ScalarProperty Name="PassWord" ColumnName="PassWord" />
+                <ScalarProperty Name="UserNo" ColumnName="UserNo" />
+                <ScalarProperty Name="IsNo" ColumnName="IsNo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="db_Company">
+            <EntityTypeMapping TypeName="db_CompanyModel.db_Company">
+              <MappingFragment StoreEntitySet="db_Company">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
+                <ScalarProperty Name="CompanyAddress" ColumnName="CompanyAddress" />
+                <ScalarProperty Name="CompanyContent" ColumnName="CompanyContent" />
+                <ScalarProperty Name="TelePhone" ColumnName="TelePhone" />
+                <ScalarProperty Name="ZipCode" ColumnName="ZipCode" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="无" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
